@@ -72,7 +72,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
-        $this->authorize('delete',$post);
+        $this->authorize('delete', $post);
         $post->delete();
         Session::flash('message', 'Post was deleted');
         return back();
