@@ -41,6 +41,31 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
+    public function edit(Post $post)
+    {
+        return view('admin.posts.edit', ['post' => $post]);
+    }
+
+    public function update(Post $post)
+    {
+        //dd(\request()->all());
+        $inputs = request()->validate([
+            'title' => 'required|min:8|max:255',
+            'post_image' => 'file',
+            'body' => 'required'
+        ]);
+        if (request('post_image')) {
+            $inputs['post_image'] = request('post_image')
+                ->storeAs('images', request('post_image')->getClientOriginalName());
+            $post->post_image = $inputs['post_image'];
+        }
+        $post->title = $inputs['title'];
+        $post->body = $inputs['body'];
+        auth()->user()->posts()->save($post);
+        session()->flash('post-updated-message', 'post is updated');
+        return redirect()->route('post.index');
+    }
+
     public function destroy(Post $post)
     {
         $post->delete();
