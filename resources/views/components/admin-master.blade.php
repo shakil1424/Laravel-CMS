@@ -63,7 +63,7 @@
         @if(auth()->user()->userHasRole('Admin'))
             <x-admin-sidebar-user-links></x-admin-sidebar-user-links>
         @endif
-
+        <x-admin-sidebar-authorization-links></x-admin-sidebar-authorization-links>
     <!-- Divider -->
         <hr class="sidebar-divider">
 
