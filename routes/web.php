@@ -33,8 +33,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('/admin/posts/{post}/update',[PostController::class, 'update'])->name('post.update');
     Route::delete('/admin/posts/{post}/destroy',[PostController::class, 'destroy'])->name('post.destroy');
 
-    Route::get('/admin/users', [userController::class, 'index'])->name('user.index');
-    Route::get('/admin/users/{user}/profile',[UserController::class, 'show'])->name('user.profile.show');
+    //Route::get('/admin/users', [userController::class, 'index'])->name('user.index');
+    //Route::get('/admin/users/{user}/profile',[UserController::class, 'show'])->name('user.profile.show');
     Route::put('/admin/users/{user}/update',[UserController::class, 'update'])->name('user.profile.update');
     Route::delete('/admin/users/{user}/destroy',[UserController::class, 'destroy'])->name('user.destroy');
+});
+
+Route::middleware(['role:admin','auth'])->group(function () {
+    Route::get('/admin/users', [userController::class, 'index'])->name('user.index');
+});
+
+Route::middleware(['can:view,user'])->group(function () {
+    Route::get('/admin/users/{user}/profile',[UserController::class, 'show'])->name('user.profile.show');
 });
