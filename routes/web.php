@@ -49,9 +49,14 @@ Route::middleware(['role:admin','auth'])->group(function () {
     Route::delete('/admin/roles/{role}/destroy',[RoleController::class, 'destroy'])->name('role.destroy');
     Route::get('/admin/roles/{role}/edit',[RoleController::class, 'edit'])->name('role.edit');
     Route::patch('/admin/roles/{role}/update',[RoleController::class, 'update'])->name('role.update');
+    Route::put('/admin/roles/{role}/attach',[RoleController::class, 'attach'])->name('role.permission.attach');
+    Route::put('/admin/roles/{role}/detach',[RoleController::class, 'detach'])->name('role.permission.detach');
 
     Route::get('/admin/permissions', [PermissionController::class, 'index'])->name('permission.index');
     Route::post('/admin/permissions/store', [PermissionController::class, 'store'])->name('permission.store');
+    Route::delete('/admin/permissions/{permission}/destroy',[PermissionController::class, 'destroy'])->name('permission.destroy');
+    Route::get('/admin/permissions/{permission}/edit',[PermissionController::class, 'edit'])->name('permission.edit');
+    Route::patch('/admin/permissions/{permission}/update',[PermissionController::class, 'update'])->name('permission.update');
 });
 
 Route::middleware(['can:view,user'])->group(function () {

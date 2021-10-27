@@ -1,19 +1,19 @@
 <x-admin-master>
     @section('content')
-        @if(session()->has('role-updated'))
+        @if(session()->has('permission-updated'))
             <div class="alert alert-success">
-                {{session('role-updated')}}
+                {{session('permission-updated')}}
             </div>
         @endif
-        <h1 class="h3 mb-4 text-gray-800">Edit Role: {{$role->name}}</h1>
+        <h1 class="h3 mb-4 text-gray-800">Edit Permission: {{$permission->name}}</h1>
         <div class="row">
             <div class="col-sm-3">
-                <form method="post" action="{{route('role.update',$role->id)}}">
+                <form method="post" action="{{route('permission.update',$permission->id)}}">
                     @csrf
                     @method("PATCH")
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" class="form-control" value="{{$role->name}}">
+                        <input type="text" id="name" name="name" class="form-control" value="{{$permission->name}}">
                         <div>
                             @error('name')
                             <span><strong>{{$message}}</strong></span>
@@ -25,7 +25,7 @@
                 </form>
             </div>
         </div>
-        <hr>
+       {{-- <hr>
         <div class="row-">
             <div class="col-sm-12">
                 <div class="card shadow mb-4">
@@ -105,6 +105,6 @@
                 </div>
 
             </div>
-        </div>
+        </div>--}}
     @endsection
 </x-admin-master>
